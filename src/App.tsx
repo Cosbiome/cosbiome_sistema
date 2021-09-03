@@ -1,26 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { HashRouter, Switch, Route } from "react-router-dom";
+import LayoutDrawer from "./components/LayoutDrawer";
+import { GlobalProvider } from "./context/GlobalContext";
+import HomePage from "./pages/HomePage";
+import Login from "./pages/Login";
+import VentasPage from "./pages/VentasPage";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <HashRouter>
+      <Switch>
+        <Route exact path="/" component={Login} />
+        <GlobalProvider>
+          <LayoutDrawer>
+            <Route exact path="/home" component={HomePage} />
+            <Route exact path="/ventas" component={VentasPage} />
+          </LayoutDrawer>
+        </GlobalProvider>
+      </Switch>
+    </HashRouter>
   );
-}
+};
 
 export default App;
